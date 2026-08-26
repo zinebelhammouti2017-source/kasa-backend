@@ -95,6 +95,38 @@ Base: /api
 - POST /api/uploads/image: uploader une image (rôle: owner ou admin). Répond avec une URL publique /uploads/... et des instructions pour l’utiliser (cover, gallery, etc.).
 - DELETE /api/uploads/images: supprimer une ou plusieurs images (rôle: owner ou admin). Accepte des noms de fichiers ou des URLs; nettoie les références en base.
 
+## Messagerie
+
+Toutes les routes de messagerie nécessitent un utilisateur connecté et un token JWT transmis dans l’en-tête :
+
+```text
+Authorization: Bearer <token>
+```
+
+Routes disponibles :
+
+- `GET /api/conversations` : récupérer les conversations de l’utilisateur ;
+- `POST /api/conversations` : créer ou récupérer une conversation pour un logement ;
+- `GET /api/conversations/:id/messages` : récupérer les messages d’une conversation ;
+- `POST /api/conversations/:id/messages` : envoyer un message ;
+- `PATCH /api/conversations/:id/read` : marquer les messages reçus comme lus.
+
+Créer une conversation :
+
+```json
+{
+  "property_id": "identifiant-du-logement"
+}
+```
+
+Envoyer un message :
+
+```json
+{
+  "content": "Bonjour, ce logement est-il disponible ?"
+}
+```
+
 ## Upload & suppression d’images
 - Dossier public: public/uploads (servi statiquement par Express)
 - Upload (multipart/form-data): champ file obligatoire. Champs optionnels: purpose (property-cover | property-picture | user-picture | other), property_id (validation d’existence).
