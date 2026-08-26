@@ -1,0 +1,11 @@
+node_modules
+.idea
+.env
+.env.*
+!.env.example
+
+data/*.sqlite3
+public/uploads/
+
+coverage
+npm-debug.log*
